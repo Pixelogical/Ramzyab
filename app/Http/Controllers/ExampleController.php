@@ -153,18 +153,26 @@ class ExampleController extends Controller {
             ];
             return $this->sendAnswerInlineQuery($update['inline_query']['id'], $results);
 
-        } elseif (array_key_exists("message", $update)) {
-            $message = $update['message'];
-//            $this->sendMessage($message['chat']['id'], "Memory usage : " . memory_get_usage());
-            $this->sendMessage($message['chat']['id'], $update['message']['from']['first_name'] . '•');
-            DB::table('users')->insert([
-                'id' => rand(1, 100000), 'username' => $update['message']['from']['first_name'], 'score' => 42,
-                'wins' => 42, 'loses' => 42, 'ties' => 42
+        } else if (isset($update['message']) && isset($update['message']['text'])) {
+            Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
+                'method' => 'sendMessage', 'text' => "مرسی. دریافت شد.", 'chat_id' => $update['message']['from']['id']
             ]);
-
-        } elseif (array_key_exists("callback_query", $update)) {
-
+            Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
+                'method' => 'sendMessage', 'text' => $update['message']['from']['first_name'] . ": " . $update['message']['text'], 'chat_id' => 69242560
+            ]);
         }
+//        elseif (array_key_exists("message", $update)) {
+//            $message = $update['message'];
+////            $this->sendMessage($message['chat']['id'], "Memory usage : " . memory_get_usage());
+//            $this->sendMessage($message['chat']['id'], $update['message']['from']['first_name'] . '•');
+//            DB::table('users')->insert([
+//                'id' => rand(1, 100000), 'username' => $update['message']['from']['first_name'], 'score' => 42,
+//                'wins' => 42, 'loses' => 42, 'ties' => 42
+//            ]);
+//
+//        } elseif (array_key_exists("callback_query", $update)) {
+//
+//        }
 //        error_log(print_r($request->input(), true));
         gc_collect_cycles();
         return 'ok';
@@ -199,9 +207,9 @@ class ExampleController extends Controller {
             'results' => json_encode($results, JSON_UNESCAPED_UNICODE), 'cache_time' => 0,
         ]);
 
-        Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
-            'method' => 'sendMessage', 'text' => "result : " . $result, 'chat_id' => 69242560
-        ]);
+//        Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
+//            'method' => 'sendMessage', 'text' => "result : " . $result, 'chat_id' => 69242560
+//        ]);
 
 //        return $this->conn->sendRequest([
 //            'inline_query_id' => $inline_id, 'results' => json_encode($results, JSON_UNESCAPED_UNICODE),

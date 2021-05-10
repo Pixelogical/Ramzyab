@@ -346,7 +346,8 @@ class Telegraf {
      */
     private function startGame() {
         Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
-            'method' => 'sendMessage', 'text' => "🏓 ".$this->username1 . " VS. ".$this->username2 , 'chat_id' => 69242560
+            'method' => 'sendMessage', 'text' => "🏓 " . $this->username1 . " VS. " . $this->username2,
+            'chat_id' => 69242560
         ]);
         $this->turn = $this->user1;
         return $this->updateBoard();
@@ -362,7 +363,7 @@ class Telegraf {
         $playedHash = ""; //floating user input hash
 
         if ($this->turn == $this->user1) {
-            $this->board = '🔒 ' . "[{$this->mode_array[$mode_index]}]" . "\n" . "\n";
+            $this->board = '🔒 ' . "[{$this->mode_array[$mode_index]}]" . "\n" . "<a href='https://t.me/ramzyab/8'>🔰 [ راهنما ]</a>" . "\n" . "\n";
             $this->board .= '📍 نوبت : ' . "<a href='tg://user?id={$this->user1}'>{$this->username1}</a>" . "\n" . "\n";
 //            $this->board .= '🔰 راهنما : ' . "\n" . 'هر ◎ به معنای عدد درست، جای اشتباه' . "\n" . 'هر ● به معنای عدد و جای درست' . "\n";
             $this->board .= $this->inputs;
@@ -398,9 +399,15 @@ class Telegraf {
         $this->inputs = "";
         $mininame1 = mb_substr($this->username1, 0, 12, 'UTF-8');
         $this->inputs .= "l▬▬▬▬( {$mininame1} )▬▬▬▬l\n";
+
         for ($i = 0; $i < $this->row1 + 1; $i++) {
             for ($j = 0; $j < $this->mode + 1; $j++) {
-                $this->inputs .= $this->input1[$i][$j] . " ";
+                //last guess should be hidden in case of player2 doesnt ent match
+                if ($j > ($this->mode - 1) and $i == ($this->row1 - 1) and $this->turn == $this->user2) {
+                    $this->inputs .= "  ░░░░░░";
+                } else {
+                    $this->inputs .= $this->input1[$i][$j] . " ";
+                }
             }
             $this->inputs .= $this->input1[$i][$this->mode + 1] . " \n";
         }

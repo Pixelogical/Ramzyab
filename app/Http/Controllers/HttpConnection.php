@@ -133,12 +133,13 @@ class HttpConnection {
     public function editInlineMessage($inline_message_id, $text, $reply_markup = null) {
         if (isset($reply_markup)) {
             return $this->sendRequest([
-                'inline_message_id' => $inline_message_id, 'text' => $text,
+                'inline_message_id' => $inline_message_id, 'text' => $text, 'disable_web_page_preview' => true,
                 'reply_markup' => "" . json_encode($reply_markup, JSON_UNESCAPED_UNICODE), 'parse_mode' => 'HTML'
             ], 'editMessageText');
         } else {
             return $this->sendRequest([
-                'inline_message_id' => $inline_message_id, 'text' => $text, 'parse_mode' => 'HTML'
+                'inline_message_id' => $inline_message_id, 'text' => $text, 'parse_mode' => 'HTML',
+                'disable_web_page_preview' => true,
             ], 'editMessageText');
         }
     }
@@ -147,12 +148,14 @@ class HttpConnection {
         if (isset($reply_markup)) {
             Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
                 'method' => 'editMessageText', 'inline_message_id' => $inline_message_id, 'text' => $text,
+                'disable_web_page_preview' => true,
                 'reply_markup' => "" . json_encode($reply_markup, JSON_UNESCAPED_UNICODE), 'parse_mode' => 'HTML'
             ]);
 
         } else {
             Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
                 'method' => 'editMessageText', 'inline_message_id' => $inline_message_id, 'text' => $text,
+                'disable_web_page_preview' => true,
                 'parse_mode' => 'HTML'
             ]);
         }
