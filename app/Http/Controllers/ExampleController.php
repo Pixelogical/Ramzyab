@@ -29,17 +29,16 @@ class ExampleController extends Controller {
 
 
     public function main() {
-//        return 'youre in main func' . x;
-        $username = "ᴬᴹᴵᴿ ᴴᴼˢˢᴱᴵᴺ";
-        while (strlen($username) > 18) {
-            $username = mb_substr($username, 0, -1, 'UTF-8');
-        }
-        return $username;
+        return 'youre in rmzyabbot main func';
+
 
     }
 
     public function setWebhook() {
-        return $this->conn->setWebhook();
+        $response =  Http::post('https://api.telegram.org/bot947041182:AAHJPHaUzE3NNMLy89_fbT5XPIY_BYvPdd8/', [
+            'method' => 'setWebhook', 'url' => "https://freelancer-project.ir/ramzyabbot/saeed"
+        ]);
+        return $response;
     }
 
 //    public function getUpdates(Request $request){
@@ -51,9 +50,9 @@ class ExampleController extends Controller {
 //    }
 
     public function getUpdates(Request $request) {
+
         $update = json_decode($request->getContent(), JSON_UNESCAPED_UNICODE);
         if (array_key_exists("callback_query", $update)) {
-
             $telegraf = new Telegraf($update['callback_query']);
             return $telegraf->callback();
         } elseif (array_key_exists("inline_query", $update)) {
@@ -154,11 +153,13 @@ class ExampleController extends Controller {
             return $this->sendAnswerInlineQuery($update['inline_query']['id'], $results);
 
         } else if (isset($update['message']) && isset($update['message']['text'])) {
-            Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
+            Http::post('https://api.telegram.org/bot947041182:AAHJPHaUzE3NNMLy89_fbT5XPIY_BYvPdd8', [
                 'method' => 'sendMessage', 'text' => "مرسی. دریافت شد.", 'chat_id' => $update['message']['from']['id']
             ]);
-            Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
-                'method' => 'sendMessage', 'text' => $update['message']['from']['first_name'] . ": " . $update['message']['text'], 'chat_id' => 69242560
+            Http::post('https://api.telegram.org/bot947041182:AAHJPHaUzE3NNMLy89_fbT5XPIY_BYvPdd8', [
+                'method' => 'sendMessage',
+                'text' => $update['message']['from']['first_name'] . ": " . $update['message']['text'],
+                'chat_id' => 69242560
             ]);
         }
 //        elseif (array_key_exists("message", $update)) {
@@ -198,23 +199,23 @@ class ExampleController extends Controller {
      * @param $results
      */
     public function sendAnswerInlineQuery($inline_id, $results) {
-//        Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
+//        Http::post('https://api.telegram.org/bot947041182:AAHJPHaUzE3NNMLy89_fbT5XPIY_BYvPdd8', [
 //            'method' => 'sendMessage', 'text' => "sending inline query", 'chat_id' => 69242560
 //        ]);
 
-        $result = Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
-            'method' => 'answerInlineQuery', 'inline_query_id' => $inline_id,
-            'results' => json_encode($results, JSON_UNESCAPED_UNICODE), 'cache_time' => 0,
-        ]);
+//        $result = Http::post('https://api.telegram.org/bot947041182:AAHJPHaUzE3NNMLy89_fbT5XPIY_BYvPdd8', [
+//            'method' => 'answerInlineQuery', 'inline_query_id' => $inline_id,
+//            'results' => json_encode($results, JSON_UNESCAPED_UNICODE), 'cache_time' => 0,
+//        ]);
 
-//        Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
+//        Http::post('https://api.telegram.org/bot947041182:AAHJPHaUzE3NNMLy89_fbT5XPIY_BYvPdd8', [
 //            'method' => 'sendMessage', 'text' => "result : " . $result, 'chat_id' => 69242560
 //        ]);
 
-//        return $this->conn->sendRequest([
-//            'inline_query_id' => $inline_id, 'results' => json_encode($results, JSON_UNESCAPED_UNICODE),
-//            'cache_time' => 0,
-//        ], 'answerInlineQuery');
+        return $this->conn->sendRequest([
+            'inline_query_id' => $inline_id, 'results' => json_encode($results, JSON_UNESCAPED_UNICODE),
+            'cache_time' => 0,
+        ], 'answerInlineQuery');
 
     }
 
@@ -242,12 +243,12 @@ class ExampleController extends Controller {
 //        ];
 //        DB::table('groups')->insert($savingData);
 //        error_log("77777777777777777777 Ϝ@☈♗.◗༄ 77777777777777777777777");
-        return ("Ϝ@☈♗.◗༄            :" . utf8_decode("ÙÙØ¨Øª Ø¨Ø§Ø²ÛÚ©Ù Ï@ââ.âà¼ Ø§Ø³Øª 
- Ø¢ÙÙØ²Ø´ Ú©ÙØªØ§ÙÙ.. 
+        return ("Ϝ@☈♗.◗༄            :" . utf8_decode("ÙÙØ¨Øª Ø¨Ø§Ø²ÛÚ©Ù Ï@ââ.âà¼ Ø§Ø³Øª
+ Ø¢ÙÙØ²Ø´ Ú©ÙØªØ§ÙÙ..
  lâ¬â¬â¬â¬( Ï@ââ.â )â¬â¬â¬â¬l
-ï¸ â¢   ï¸ â¢   ï¸ â¢   ï¸ â¢       
+ï¸ â¢   ï¸ â¢   ï¸ â¢   ï¸ â¢
 lâ¬â¬â¬â¬( Pixel â¢ )â¬â¬â¬â¬l
-ï¸ â¢   ï¸ â¢   ï¸ â¢   ï¸ â¢       
+ï¸ â¢   ï¸ â¢   ï¸ â¢   ï¸ â¢
 "));
     }
 

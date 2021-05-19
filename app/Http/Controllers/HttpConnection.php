@@ -19,7 +19,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class HttpConnection {
     protected $endpoint;
-    protected $baseURI = ['base_uri' => 'https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/'];
+    protected $baseURI = ['base_uri' => 'https://api.telegram.org/bot947041182:AAHJPHaUzE3NNMLy89_fbT5XPIY_BYvPdd8/'];
     protected $synchronous;
     /** @var Client */
     protected $client;
@@ -44,11 +44,11 @@ class HttpConnection {
     }
 
     public function sendRequest($jsonData, $endpoint) {
-//        Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
+//        Http::post('https://api.telegram.org/bot947041182:AAHJPHaUzE3NNMLy89_fbT5XPIY_BYvPdd8/', [
 //            'method' => 'sendMessage', 'text' => "im in sendrequest", 'chat_id' => 69242560
 //        ]);
         return response()->json(array_merge($jsonData, ['method' => $endpoint]));
-//        Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
+//        Http::post('https://api.telegram.org/bot947041182:AAHJPHaUzE3NNMLy89_fbT5XPIY_BYvPdd8/', [
 //            'method' => 'sendMessage', 'text' => "res : " . print_r($r, true), 'chat_id' => 69242560
 //        ]);
 //
@@ -105,9 +105,6 @@ class HttpConnection {
      * @param null $text
      */
     public function answerCB($id, $text = null) {
-//        Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
-//            'method' => 'sendMessage', 'text' => "ANSWERCB " . print_r($text, true), 'chat_id' => 69242560
-//        ]);
         if (isset($text)) {
             return $this->sendRequest([
                 'callback_query_id' => $id, 'text' => $text
@@ -146,24 +143,23 @@ class HttpConnection {
 
     public function SendEditInlineMessage($inline_message_id, $text, $reply_markup = null) {
         if (isset($reply_markup)) {
-            Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
+            Http::post('https://api.telegram.org/bot947041182:AAHJPHaUzE3NNMLy89_fbT5XPIY_BYvPdd8/', [
                 'method' => 'editMessageText', 'inline_message_id' => $inline_message_id, 'text' => $text,
                 'disable_web_page_preview' => true,
                 'reply_markup' => "" . json_encode($reply_markup, JSON_UNESCAPED_UNICODE), 'parse_mode' => 'HTML'
             ]);
 
         } else {
-            Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
+            Http::post('https://api.telegram.org/bot947041182:AAHJPHaUzE3NNMLy89_fbT5XPIY_BYvPdd8/', [
                 'method' => 'editMessageText', 'inline_message_id' => $inline_message_id, 'text' => $text,
-                'disable_web_page_preview' => true,
-                'parse_mode' => 'HTML'
+                'disable_web_page_preview' => true, 'parse_mode' => 'HTML'
             ]);
         }
 
     }
 
     public function getChatMember($chat, $user) {
-        return Http::post('https://api.telegram.org/bot947041182:AAGHj9uUinzWKnEm93uTUhATJxWqs5hmcSk/', [
+        return Http::post('https://api.telegram.org/bot947041182:AAHJPHaUzE3NNMLy89_fbT5XPIY_BYvPdd8/', [
             'method' => 'getChatMember', 'chat_id' => $chat, 'user_id' => $user
         ]);
     }
